@@ -1,4 +1,4 @@
-<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
@@ -33,8 +33,10 @@
         }
         .page{display:none; padding:20px; flex:1; overflow:auto;}
         .page.active{display:flex; flex-direction:column;}
+
         h1{ text-align:center; color:var(--ink); margin:14px 0 20px; font-weight:800; letter-spacing:.2px}
         h3{ margin:0 0 10px; color:var(--ink); }
+
         /* ===============================
            Search Bars
            =============================== */
@@ -55,6 +57,7 @@
         }
         .btn:active{ transform:translateY(1px) }
         .btn:hover{ background:var(--brand-600) }
+
         /* ===============================
            Cards & Lists
            =============================== */
@@ -67,8 +70,10 @@
         .card:hover{ transform:translateY(-4px); box-shadow:0 14px 34px rgba(0,0,0,.1);}
         .card-icon{ font-size:2.6rem; }
         .card-title{ font-size:1.1rem; font-weight:800; color:#333; }
+
         .results-container{ margin-top:10px; }
         .empty{ text-align:center; color:#777; padding:24px 12px }
+
         .item{
             background:#fff; border-radius:12px; padding:14px; box-shadow:0 2px 12px rgba(0,0,0,.06);
             margin-bottom:12px; display:flex; gap:14px; align-items:center;
@@ -80,20 +85,24 @@
         }
         .item h3{ margin:0 0 6px; font-size:1.05rem }
         .meta{ color:#666; font-size:.93rem; line-height:1.5 }
+
         .kpis{ display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:10px}
         .kpi{
             background:#f7fdf7; border:1px solid #e7f6e7; color:#1b5e20; padding:10px; border-radius:10px;
             text-align:center; font-weight:800; font-size:.95rem;
         }
         .kpi span{ display:block; font-weight:600; color:#2f3f2f; font-size:.85rem }
+
         .chip{ display:inline-flex; align-items:center; gap:6px; border:1px solid #eee; padding:6px 10px; border-radius:999px; font-size:.9rem; color:#444; background:#fafafa }
+
         /* ===============================
            Modal
            =============================== */
         .modal{ display:none; position:fixed; inset:0; z-index:1000; background:rgba(0,0,0,.5); align-items:center; justify-content:center; animation:fadeIn .2s ease }
         .modal.open{ display:flex }
         .modal-content{
-            background:#fff; width:min(640px,92%); border-radius:16px; padding:22px; position:relative; max-height:90vh; overflow:auto;
+            background:#fff; width:min(640px,92%); border-radius:16px; padding:22px; position:relative; 
+            max-height:80vh; overflow-y: auto; /* FIXED: Added scrolling for modal content */
             box-shadow:0 14px 44px rgba(0,0,0,.24); animation:pop .18s ease;
         }
         .modal-content h2{ margin:0 0 10px; color:var(--ink) }
@@ -103,6 +112,7 @@
         }
         @keyframes fadeIn{from{opacity:0} to{opacity:1}}
         @keyframes pop{from{ transform:translateY(8px); opacity:0 } to{ transform:translateY(0); opacity:1 }}
+
         /* ===============================
            Profile
            =============================== */
@@ -122,6 +132,7 @@
             background:#fafafa; border:1px solid #eee; padding:10px 12px; border-radius:10px; margin-bottom:8px; font-size:.95rem;
         }
         .pill{ background:#eef7ff; color:#0b63c4; border:1px solid #d7eaff; border-radius:999px; padding:4px 8px; font-size:.8rem; }
+
         /* ===============================
            Bottom Navigation
            =============================== */
@@ -136,9 +147,11 @@
         }
         .nav-item.active{ color:var(--brand); background:#e8f5e9; }
         .nav-item svg{ width:26px; height:26px; fill:currentColor }
+
         /* Helpers */
         .mt-8{margin-top:8px} .mt-12{margin-top:12px} .mt-16{margin-top:16px} .mt-24{margin-top:24px}
         .sr{position:absolute !important; height:1px; width:1px; overflow:hidden; clip:rect(1px,1px,1px,1px); white-space:nowrap}
+
         /* Responsive tweaks */
         @media (max-width:680px){
             #app{ box-shadow:none; }
@@ -148,17 +161,21 @@
 </head>
 <body>
 <div id="app">
+
     <!-- ===========================
          Dashboard
          =========================== -->
     <div id="dashboard" class="page active" role="region" aria-labelledby="dash-title">
         <h1 id="dash-title">Desi Fitness Coach</h1>
+
         <div class="search-container">
             <span class="search-icon" aria-hidden="true">
+                <!-- Modern search icon -->
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.8 14.4h-.8l-.3-.3a6.5 6.5 0 1 0-1.1 1.1l.3.3v.8l4.9 4.9 1.4-1.4-4.9-4.9zm-6.3 0A4.9 4.9 0 1 1 14.4 9.5 4.9 4.9 0 0 1 9.5 14.4z"/></svg>
             </span>
             <input type="text" id="dashboard-search-input" placeholder="Search any food or exercise..." aria-label="Search any food or exercise"/>
         </div>
+
         <div class="card-grid" aria-label="Quick actions">
             <div class="card" id="calorie-finder-card" tabindex="0" role="button" aria-label="Open Calorie Finder">
                 <span class="card-icon" aria-hidden="true">🍎</span>
@@ -169,17 +186,20 @@
                 <span class="card-title">Workout Library</span>
             </div>
         </div>
+
         <div class="history-section mt-24" id="dashboard-history">
             <h3>Recently Viewed</h3>
             <ul class="history-list" id="dashboard-history-list"></ul>
             <div id="dashboard-empty" class="empty">No recent items yet. Try searching a food (e.g., <span class="pill">1 plate luchi and alur dom</span>) or an exercise (<span class="pill">chest</span>).</div>
         </div>
     </div>
+
     <!-- ===========================
          Nutrition
          =========================== -->
     <div id="nutrition" class="page" role="region" aria-labelledby="nutrition-title">
         <h1 id="nutrition-title">Nutrition Tracker</h1>
+
         <div class="search-container">
             <span class="search-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24"><path d="M15.8 14.4h-.8l-.3-.3a6.5 6.5 0 1 0-1.1 1.1l.3.3v.8l4.9 4.9 1.4-1.4-4.9-4.9zm-6.3 0A4.9 4.9 0 1 1 14.4 9.5 4.9 4.9 0 0 1 9.5 14.4z"/></svg>
@@ -187,13 +207,16 @@
             <input type="text" id="nutrition-search-input" placeholder="e.g., 1 plate luchi and alur dom"/>
         </div>
         <button class="btn" id="nutrition-search-button" aria-label="Get Nutrition Info">Get Nutrition Info</button>
+
         <div class="results-container" id="nutrition-results" aria-live="polite"></div>
     </div>
+
     <!-- ===========================
          Workout
          =========================== -->
     <div id="workout" class="page" role="region" aria-labelledby="workout-title">
         <h1 id="workout-title">Workout Library</h1>
+
         <div class="search-container">
             <span class="search-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24"><path d="M15.8 14.4h-.8l-.3-.3a6.5 6.5 0 1 0-1.1 1.1l.3.3v.8l4.9 4.9 1.4-1.4-4.9-4.9zm-6.3 0A4.9 4.9 0 1 1 14.4 9.5 4.9 4.9 0 0 1 9.5 14.4z"/></svg>
@@ -201,44 +224,55 @@
             <input type="text" id="workout-search-input" placeholder="Search by body part (e.g., chest) or type (yoga)"/>
         </div>
         <button class="btn" id="workout-search-button" aria-label="Find Exercises">Find Exercises</button>
+
         <div class="results-container" id="workout-results" aria-live="polite"></div>
     </div>
+
     <!-- ===========================
          Profile
          =========================== -->
     <div id="profile" class="page" role="region" aria-labelledby="profile-title">
         <h1 id="profile-title">Your Profile</h1>
+
         <form id="profile-form" class="profile-form" autocomplete="on">
             <label for="name">Name</label>
             <input type="text" id="name" placeholder="Your Name" autocomplete="name"/>
+
             <label for="age">Age</label>
             <input type="number" id="age" placeholder="Your Age" min="1" max="120"/>
+
             <label for="weight">Weight (kg)</label>
             <input type="number" id="weight" placeholder="Your Weight" min="1" max="500" step="0.1"/>
+
             <label for="height">Height (cm)</label>
             <input type="number" id="height" placeholder="Your Height" min="30" max="250" step="0.1"/>
+
             <div class="profile-actions">
                 <button type="submit" class="btn">Save Profile</button>
                 <button type="button" id="clear-profile" class="btn" style="background:#ef4444">Clear</button>
             </div>
         </form>
+
         <div class="profile-summary" id="profile-summary">
             <div><strong>Name:</strong> <span id="summary-name">N/A</span></div>
             <div><strong>Age:</strong> <span id="summary-age">N/A</span></div>
             <div><strong>Weight:</strong> <span id="summary-weight">N/A</span> kg</div>
             <div><strong>Height:</strong> <span id="summary-height">N/A</span> cm</div>
         </div>
+
         <div class="history-section">
             <h3>Food Search History</h3>
             <ul class="history-list" id="food-history-list"></ul>
             <div id="food-history-empty" class="empty">No food searches yet.</div>
         </div>
+
         <div class="history-section">
             <h3>Exercise View History</h3>
             <ul class="history-list" id="exercise-history-list"></ul>
             <div id="exercise-history-empty" class="empty">No exercises viewed yet.</div>
         </div>
     </div>
+
     <!-- ===========================
          Modal: Exercise Details
          =========================== -->
@@ -260,55 +294,67 @@
             </div>
         </div>
     </div>
+
 </div>
+
 <!-- ===========================
      Bottom Navigation (Fixed)
      =========================== -->
 <nav class="bottom-nav" aria-label="Bottom navigation">
     <a href="#dashboard" class="nav-item active" data-page="dashboard" aria-label="Dashboard">
+        <!-- High-quality home icon -->
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/></svg>
         <span>Dashboard</span>
     </a>
     <a href="#nutrition" class="nav-item" data-page="nutrition" aria-label="Nutrition">
+        <!-- Apple-like icon -->
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.2 13.6c.1-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.6.8-3.2.8s-1.7-.7-2.8-.7c-1.4 0-2.7.8-3.4 2-.1.1-1.5 2.6-.4 5.4 0 0 2.3 4.3 4.2 4.2 1-.1 1.8-.7 2.7-.7s1.7.7 2.8.7c2.1 0 3.6-2.1 4.3-4.2-.1-.1-3-1.1-2.8-3.2zM14.7 5.8c.6-.7 1-1.7.9-2.7-.9 0-2 .6-2.6 1.3-.6.7-1.1 1.7-.9 2.7 1 .1 2-.6 2.6-1.3z"/></svg>
         <span>Nutrition</span>
     </a>
     <a href="#workout" class="nav-item" data-page="workout" aria-label="Workout">
+        <!-- Dumbbell icon -->
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 10h2v4H2v-4zm3-3h2v10H5V7zm4 3h6v4H9v-4zm8-3h2v10h-2V7zm3 3h2v4h-2v-4z"/></svg>
         <span>Workout</span>
     </a>
     <a href="#profile" class="nav-item" data-page="profile" aria-label="Profile">
+        <!-- User icon -->
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4.5 4.5 0 1 0-4.5-4.5A4.5 4.5 0 0 0 12 12zm0 2c-3 0-9 1.6-9 4.8V21h18v-2.2C21 15.6 15 14 12 14z"/></svg>
         <span>Profile</span>
     </a>
 </nav>
+
 <script>
 /* =========================================================
    API Keys (from your message) -- used directly here
    ========================================================= */
 const NUTRITIONIX_APP_ID = '14f6dcde';
 const NUTRITIONIX_APP_KEY = 'c5b6e6d0e1e4ea3d8ebdcd1a6ff67d0a';
-const EXERCISEDB_API_KEY = 'efe6c2396amshca58838cfcf1fa6p1e841bjsn3ebd7b50839d';
-const EXERCISEDB_BASE_URL = 'https://exercisedb.p.rapidapi.com';
+const API_NINJAS_KEY = 'efe6c2396amshca58838cfcf1fa6p1e841bjsn3ebd7b50839d';
+const PEXELS_API_KEY = 'GiwdENpRb6f5TkWmordUixunWpfGyU3KRJtYPykVzdGDSxOgR5hKqlpf';
+
 /* =========================================================
    DOM Refs
    ========================================================= */
 const pages = document.querySelectorAll('.page');
 const navItems = document.querySelectorAll('.nav-item');
+
 /* Dashboard */
 const dashboardSearchInput = document.getElementById('dashboard-search-input');
 const calorieFinderCard   = document.getElementById('calorie-finder-card');
 const workoutLibraryCard  = document.getElementById('workout-library-card');
 const dashboardHistoryList = document.getElementById('dashboard-history-list');
 const dashboardEmpty = document.getElementById('dashboard-empty');
+
 /* Nutrition */
 const nutritionSearchInput  = document.getElementById('nutrition-search-input');
 const nutritionSearchButton = document.getElementById('nutrition-search-button');
 const nutritionResultsDiv   = document.getElementById('nutrition-results');
+
 /* Workout */
 const workoutSearchInput  = document.getElementById('workout-search-input');
 const workoutSearchButton = document.getElementById('workout-search-button');
 const workoutResultsDiv   = document.getElementById('workout-results');
+
 /* Modal */
 const workoutDetailModal   = document.getElementById('workout-detail-modal');
 const modalCloseButton     = workoutDetailModal.querySelector('.close-button');
@@ -319,6 +365,7 @@ const modalTargetMuscle    = document.getElementById('modal-target-muscle');
 const modalEquipment       = document.getElementById('modal-equipment');
 const modalInstructions    = document.getElementById('modal-instructions');
 const modalSecondary       = document.getElementById('modal-secondary');
+
 /* Profile */
 const profileForm     = document.getElementById('profile-form');
 const nameInput       = document.getElementById('name');
@@ -334,6 +381,7 @@ const foodHistoryList = document.getElementById('food-history-list');
 const exerciseHistoryList = document.getElementById('exercise-history-list');
 const foodHistoryEmpty = document.getElementById('food-history-empty');
 const exerciseHistoryEmpty = document.getElementById('exercise-history-empty');
+
 /* =========================================================
    Storage Helpers
    ========================================================= */
@@ -342,6 +390,7 @@ const STORAGE_KEYS = {
   FOOD_HISTORY: 'dfc_food_history',
   EX_HISTORY: 'dfc_exercise_history'
 };
+
 function saveProfile(data){
   try { localStorage.setItem(STORAGE_KEYS.PROFILE, JSON.stringify(data)); }
   catch(e){ console.warn('Failed to save profile', e); }
@@ -350,9 +399,11 @@ function getProfile(){
   try { return JSON.parse(localStorage.getItem(STORAGE_KEYS.PROFILE)) || null; }
   catch{ return null; }
 }
+
 function pushHistory(key, item, limit=12){
   const arr = getHistory(key);
   arr.unshift(item);
+  // De-dup by id/text where available
   const seen = new Set();
   const deduped = [];
   for (const it of arr){
@@ -369,6 +420,7 @@ function getHistory(key){
   try { return JSON.parse(localStorage.getItem(key)) || []; }
   catch{ return []; }
 }
+
 /* =========================================================
    SPA Navigation
    ========================================================= */
@@ -376,6 +428,7 @@ function showPage(id){
   pages.forEach(p => p.classList.toggle('active', p.id === id));
   navItems.forEach(n => n.classList.toggle('active', n.dataset.page === id));
   history.pushState(null, '', `#${id}`);
+
   if (id === 'profile'){
     loadProfileData();
     renderHistory();
@@ -394,11 +447,13 @@ navItems.forEach(item => item.addEventListener('click', e => {
   e.preventDefault();
   showPage(item.dataset.page);
 }));
+
 /* Quick cards */
 calorieFinderCard.addEventListener('click', () => showPage('nutrition'));
 calorieFinderCard.addEventListener('keypress', (e)=>{ if(e.key==='Enter') showPage('nutrition'); });
 workoutLibraryCard.addEventListener('click', () => showPage('workout'));
 workoutLibraryCard.addEventListener('keypress', (e)=>{ if(e.key==='Enter') showPage('workout'); });
+
 /* =========================================================
    DASHBOARD Unified Search (smart route)
    ========================================================= */
@@ -406,8 +461,11 @@ dashboardSearchInput.addEventListener('keypress', async (e) => {
   if (e.key !== 'Enter') return;
   const query = dashboardSearchInput.value.trim();
   if (!query) return;
+
+  // Lightweight heuristic to route to Nutrition vs Workout
   const foodKeywords = ['plate','bowl','curry','rice','roti','naan','dal','paneer','chicken','fish','veg','soup','breakfast','lunch','dinner','calories','nutrition','biriyani','biryani','paratha','luchi','pulao','idli','dosa','chole','bhature','poha','upma','sambar','rasgulla','sandesh','jalebi','luchi','alur'];
   const exerciseKeywords = ['chest','legs','arms','shoulders','back','glutes','abs','core','yoga','cardio','biceps','triceps','hamstrings','quads','calves','forearms','stretch','neck','upper','lower','push','pull','press','squat','deadlift','run','plank'];
+
   const isFood = foodKeywords.some(k => query.toLowerCase().includes(k));
   if (isFood){
     showPage('nutrition');
@@ -419,12 +477,15 @@ dashboardSearchInput.addEventListener('keypress', async (e) => {
     await handleWorkoutSearch();
   }
 });
+
 /* =========================================================
    Nutrition: Robust Nutritionix Natural Language call
-   - Modified to remove redundant KPIs below food image
+   - Rewritten to be more resilient, include additional headers,
+     fallback numeric keys, and image placeholders.
    ========================================================= */
 nutritionSearchButton.addEventListener('click', handleNutritionSearch);
 nutritionSearchInput.addEventListener('keypress', (e)=>{ if (e.key==='Enter') handleNutritionSearch(); });
+
 async function handleNutritionSearch(){
   const q = (nutritionSearchInput.value || '').trim();
   if (!q){
@@ -432,8 +493,11 @@ async function handleNutritionSearch(){
     return;
   }
   renderNutritionLoading();
+
   const PLACEHOLDER_FOOD = `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300'><rect width='100%' height='100%' fill='%23f2f2f2'/><text x='50%' y='50%' font-size='18' dominant-baseline='middle' text-anchor='middle' fill='%23777' font-family='Verdana,Arial'>No Image</text></svg>`;
+
   try{
+    // Build request; include x-remote-user-id as recommended by some Nutritionix docs
     const body = { query: q };
     const resp = await fetch('https://trackapi.nutritionix.com/v2/natural/nutrients', {
       method: 'POST',
@@ -446,15 +510,19 @@ async function handleNutritionSearch(){
       },
       body: JSON.stringify(body)
     });
+
     if (!resp.ok){
       const text = await resp.text().catch(()=> '');
       throw new Error(`Nutritionix API returned ${resp.status} ${text}`);
     }
     const data = await resp.json();
+
     if (!data || !Array.isArray(data.foods) || data.foods.length === 0){
       renderNutritionMessage('No results. Try phrasing like <b>2 roti with dal</b> or <b>1 bowl chicken biryani</b>.');
       return;
     }
+
+    // Aggregate totals, with safe keys fallback
     const totals = data.foods.reduce((acc, f) => {
       acc.cal += safeNum(f, 'nf_calories', 'calories', 'cal');
       acc.pro += safeNum(f, 'nf_protein', 'protein', 'protein_g');
@@ -462,21 +530,26 @@ async function handleNutritionSearch(){
       acc.carb+= safeNum(f, 'nf_total_carbohydrate', 'total_carbohydrate', 'carbohydrate', 'carb');
       return acc;
     }, {cal:0, pro:0, fat:0, carb:0});
+
+    // Build list items - FIXED: Remove redundant calorie/protein boxes below each food item
     const list = data.foods.map(f => {
       const imgUrl = (f.photo && (f.photo.highres || f.photo.thumb)) || PLACEHOLDER_FOOD;
+      const servingInfo = f.serving_qty ? `${f.serving_qty} ${f.serving_unit || ''}` : '';
+      
       return `
       <div class="item">
         <img class="thumb" alt="${escapeHtml(f.food_name || 'food')}" src="${escapeAttr(imgUrl)}" onerror="this.onerror=null;this.src='${PLACEHOLDER_FOOD}'">
         <div style="flex:1">
           <h3>${titleCase(escapeHtml(f.food_name || 'Unknown'))}</h3>
           <div class="meta">
-            ${f.serving_qty ? `<span class="chip">${escapeHtml(String(f.serving_qty))} ${escapeHtml(f.serving_unit || '')}</span>`:''}
-            ${f.brand_name ? `<span class="chip">${escapeHtml(f.brand_name)}</span>`:''}
+            ${servingInfo ? `<span class="chip">${escapeHtml(servingInfo)}</span>` : ''}
+            ${f.brand_name ? `<span class="chip">${escapeHtml(f.brand_name)}</span>` : ''}
           </div>
         </div>
       </div>
       `;
     }).join('');
+
     nutritionResultsDiv.innerHTML = `
       <div class="item" style="border:2px solid #e7f6e7">
         <div style="flex:1">
@@ -491,14 +564,19 @@ async function handleNutritionSearch(){
       </div>
       ${list}
     `;
+
+    // Store search in history (sig helps de-dup)
     pushHistory(STORAGE_KEYS.FOOD_HISTORY, { sig: q, q, when: Date.now() });
     renderHistory();
     renderDashboardHistory();
+
   } catch (err) {
+    // Friendly error; show useful message
     renderNutritionMessage('⚠️ Unable to fetch nutrition right now. ' + escapeHtml(err.message || 'Network error'));
     console.error('Nutritionix error', err);
   }
 }
+
 function renderNutritionLoading(){
   nutritionResultsDiv.innerHTML = `
     <div class="item"><div class="meta">Fetching nutrition details…</div></div>
@@ -507,13 +585,15 @@ function renderNutritionLoading(){
 function renderNutritionMessage(html){
   nutritionResultsDiv.innerHTML = `<div class="empty">${html}</div>`;
 }
+
 /* =========================================================
-   WORKOUT: ExerciseDB via RapidAPI
-   - Fixed to handle HTTPS for gifUrl and ensure proper rendering
+   WORKOUT: Completely Rebuilt with API-Ninjas + Pexels API
    ========================================================= */
 workoutSearchButton.addEventListener('click', handleWorkoutSearch);
 workoutSearchInput.addEventListener('keypress', (e)=>{ if (e.key==='Enter') handleWorkoutSearch(); });
-const PLACEHOLDER_EXERCISE = `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='350'><rect width='100%' height='100%' fill='%23f2f2f2'/><text x='50%' y='50%' font-size='20' dominant-baseline='middle' text-anchor='middle' fill='%23777' font-family='Verdana,Arial'>Animation not available</text></svg>`;
+
+const PLACEHOLDER_EXERCISE = `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='350'><rect width='100%' height='100%' fill='%23f2f2f2'/><text x='50%' y='50%' font-size='20' dominant-baseline='middle' text-anchor='middle' fill='%23777' font-family='Verdana,Arial'>Loading image...</text></svg>`;
+
 async function handleWorkoutSearch(){
   const qRaw = workoutSearchInput.value || '';
   const q = qRaw.trim().toLowerCase();
@@ -522,137 +602,210 @@ async function handleWorkoutSearch(){
     return;
   }
   renderWorkoutLoading();
+
   try{
     const headers = {
-      'X-RapidAPI-Key': EXERCISEDB_API_KEY,
-      'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com'
+      'X-RapidAPI-Key': API_NINJAS_KEY,
+      'X-RapidAPI-Host': 'exercises-by-api-ninjas.p.rapidapi.com'
     };
+
+    // Call the API-Ninjas exercises API with multiple search strategies
     let results = [];
-    try {
-      const response = await fetch(`${EXERCISEDB_BASE_URL}/exercises/bodyPart/${encodeURIComponent(q)}`, {
+    
+    // Try name search first
+    const nameResponse = await fetch(`https://exercises-by-api-ninjas.p.rapidapi.com/v1/exercises?name=${encodeURIComponent(q)}`, {
+      headers: headers
+    });
+    
+    if (nameResponse.ok) {
+      const nameResults = await nameResponse.json();
+      if (nameResults && nameResults.length > 0) {
+        results = nameResults;
+      }
+    }
+    
+    // If no results from name search, try muscle search
+    if (results.length === 0) {
+      const muscleResponse = await fetch(`https://exercises-by-api-ninjas.p.rapidapi.com/v1/exercises?muscle=${encodeURIComponent(q)}`, {
         headers: headers
       });
-      if (!response.ok) {
-        throw new Error(`API error: ${response.status}`);
-      }
-      results = await response.json();
-    } catch (error) {
-      console.log(`No results for body part "${q}", trying target muscle`);
-    }
-    if (!results || results.length === 0) {
-      try {
-        const response = await fetch(`${EXERCISEDB_BASE_URL}/exercises/target/${encodeURIComponent(q)}`, {
-          headers: headers
-        });
-        if (!response.ok) {
-          throw new Error(`API error: ${response.status}`);
+      
+      if (muscleResponse.ok) {
+        const muscleResults = await muscleResponse.json();
+        if (muscleResults && muscleResults.length > 0) {
+          results = muscleResults;
         }
-        results = await response.json();
-      } catch (error) {
-        console.log(`No results for target muscle "${q}", trying name search`);
       }
     }
-    if (!results || results.length === 0) {
-      try {
-        const response = await fetch(`${EXERCISEDB_BASE_URL}/exercises/name/${encodeURIComponent(q)}`, {
-          headers: headers
-        });
-        if (!response.ok) {
-          throw new Error(`API error: ${response.status}`);
+
+    // If still no results, try type search
+    if (results.length === 0) {
+      const typeResponse = await fetch(`https://exercises-by-api-ninjas.p.rapidapi.com/v1/exercises?type=${encodeURIComponent(q)}`, {
+        headers: headers
+      });
+      
+      if (typeResponse.ok) {
+        const typeResults = await typeResponse.json();
+        if (typeResults && typeResults.length > 0) {
+          results = typeResults;
         }
-        results = await response.json();
-      } catch (error) {
-        console.log(`No results for name search "${q}"`);
       }
     }
-    if (!results || results.length === 0) {
-      try {
-        const response = await fetch(`${EXERCISEDB_BASE_URL}/exercises`, {
-          headers: headers
-        });
-        if (!response.ok) {
-          throw new Error(`API error: ${response.status}`);
-        }
-        const allExercises = await response.json();
-        results = allExercises.filter(ex => {
-          const name = (ex.name || '').toLowerCase();
-          const bodyPart = (ex.bodyPart || '').toLowerCase();
-          const target = (ex.target || '').toLowerCase();
-          const equipment = (ex.equipment || '').toLowerCase();
-          return name.includes(q) || bodyPart.includes(q) || target.includes(q) || equipment.includes(q);
-        });
-      } catch (error) {
-        console.log('Error fetching all exercises', error);
-      }
-    }
+
     if (!results || results.length === 0){
       renderWorkoutMessage('No exercises found. Try a simpler keyword like <b>back</b>, <b>legs</b>, <b>yoga</b>, <b>cardio</b>.');
       return;
     }
-    const limited = results.slice(0, 60);
+
+    // Limit results and fetch images for each
+    const limited = results.slice(0, 20);
+    
+    // Create exercise items with placeholder images
     workoutResultsDiv.innerHTML = limited.map(ex => {
-      const rawGif = ex.gifUrl || ex.gif_url || '';
-      const imgSrc = isValidUrl(rawGif) ? rawGif.replace(/^http:/, 'https:') : PLACEHOLDER_EXERCISE;
-      const exJson = escapeAttr(JSON.stringify({
-        id: ex.id || ex.name,
-        name: ex.name,
-        bodyPart: ex.bodyPart,
-        target: ex.target,
-        equipment: ex.equipment,
-        gifUrl: imgSrc,
-        instructions: ex.instructions || null,
-        secondaryMuscles: ex.secondaryMuscles || []
-      }));
       return `
-      <div class="item exercise" data-ex='${exJson}'>
-        <img class="thumb" loading="lazy" src="${escapeAttr(imgSrc)}" alt="${escapeHtml(ex.name || 'exercise')}" onerror="this.onerror=null;this.src='${PLACEHOLDER_EXERCISE}'"/>
+      <div class="item exercise" data-ex='${escapeAttr(JSON.stringify(ex))}'>
+        <img class="thumb exercise-image" loading="lazy" src="${PLACEHOLDER_EXERCISE}" alt="${escapeHtml(ex.name || 'exercise')}"/>
         <div style="flex:1">
           <h3>${titleCase(escapeHtml(ex.name || 'Unknown'))}</h3>
           <div class="meta">
-            <span class="chip">${titleCase(escapeHtml(ex.bodyPart || 'N/A'))}</span>
-            <span class="chip">${titleCase(escapeHtml(ex.target || 'N/A'))}</span>
+            <span class="chip">${titleCase(escapeHtml(ex.muscle || 'N/A'))}</span>
+            <span class="chip">${titleCase(escapeHtml(ex.type || 'N/A'))}</span>
             <span class="chip">Equip: ${titleCase(escapeHtml(ex.equipment || 'None'))}</span>
           </div>
         </div>
       </div>
       `;
     }).join('');
+
+    // Fetch images for each exercise asynchronously
+    limited.forEach(async (ex, index) => {
+      try {
+        const imageUrl = await fetchExerciseImage(ex.name);
+        const exerciseItems = workoutResultsDiv.querySelectorAll('.exercise');
+        if (exerciseItems[index]) {
+          const imgElement = exerciseItems[index].querySelector('.exercise-image');
+          if (imgElement && imageUrl) {
+            imgElement.src = imageUrl;
+          }
+        }
+      } catch (error) {
+        console.warn(`Failed to fetch image for ${ex.name}:`, error);
+      }
+    });
+
+    // Bind clicks to open modal (re-query to attach handlers)
     workoutResultsDiv.querySelectorAll('.exercise').forEach(el => {
-      el.addEventListener('click', () => {
+      el.addEventListener('click', async () => {
         let ex;
         try{ ex = JSON.parse(el.dataset.ex); } catch(e){ console.warn('Failed parse exercise dataset', e); return; }
+        
+        // Fetch high-quality image for the modal
+        try {
+          const modalImageUrl = await fetchExerciseImage(ex.name);
+          if (modalImageUrl) {
+            ex.imageUrl = modalImageUrl;
+          }
+        } catch (error) {
+          console.warn(`Failed to fetch modal image for ${ex.name}:`, error);
+        }
+        
         openExerciseModal(ex);
         pushHistory(STORAGE_KEYS.EX_HISTORY, {
-          id: ex.id || ex.name, name: ex.name, bodyPart: ex.bodyPart, when: Date.now()
+          id: ex.name, name: ex.name, bodyPart: ex.muscle, when: Date.now()
         });
         renderHistory();
         renderDashboardHistory();
       });
     });
+
   }catch(err){
     renderWorkoutMessage('⚠️ Unable to fetch exercises right now. ' + escapeHtml(err.message || 'Network error'));
-    console.error('ExerciseDB error', err);
+    console.error('API-Ninjas error', err);
   }
 }
+
+// Function to fetch exercise image from Pexels API
+async function fetchExerciseImage(exerciseName) {
+  try {
+    // Search for exercise-related images
+    const response = await fetch(`https://api.pexels.com/v1/search?query=${encodeURIComponent(exerciseName + ' exercise')}&per_page=1`, {
+      headers: {
+        'Authorization': PEXELS_API_KEY
+      }
+    });
+    
+    if (!response.ok) {
+      throw new Error(`Pexels API returned ${response.status}`);
+    }
+    
+    const data = await response.json();
+    
+    if (data.photos && data.photos.length > 0) {
+      // Return the medium-sized image
+      return data.photos[0].src.medium;
+    }
+    
+    // Fallback to a generic fitness image if no specific exercise image found
+    const fallbackResponse = await fetch(`https://api.pexels.com/v1/search?query=fitness workout&per_page=1`, {
+      headers: {
+        'Authorization': PEXELS_API_KEY
+      }
+    });
+    
+    if (fallbackResponse.ok) {
+      const fallbackData = await fallbackResponse.json();
+      if (fallbackData.photos && fallbackData.photos.length > 0) {
+        return fallbackData.photos[0].src.medium;
+      }
+    }
+    
+    return null;
+  } catch (error) {
+    console.warn('Error fetching exercise image:', error);
+    return null;
+  }
+}
+
 function renderWorkoutLoading(){
   workoutResultsDiv.innerHTML = `<div class="item"><div class="meta">Loading exercises…</div></div>`;
 }
 function renderWorkoutMessage(html){
   workoutResultsDiv.innerHTML = `<div class="empty">${html}</div>`;
 }
-/* Modal logic (ensure HTTPS gif) */
+
+/* Modal logic with improved image handling */
 function openExerciseModal(ex){
   modalExerciseName.textContent = titleCase(ex.name || 'Exercise');
-  const gifOk = isValidUrl(ex.gifUrl) ? ex.gifUrl.replace(/^http:/, 'https:') : (ex.gif || ex.gifUrl || '');
-  modalExerciseGif.src = isValidUrl(gifOk) ? gifOk : PLACEHOLDER_EXERCISE;
-  modalExerciseGif.onerror = function(){ this.onerror = null; this.src = PLACEHOLDER_EXERCISE; };
-  modalBodyPart.textContent = titleCase(ex.bodyPart || 'N/A');
-  modalTargetMuscle.textContent = titleCase(ex.target || 'N/A');
+
+  // Use the image URL if available, otherwise use placeholder
+  if (ex.imageUrl) {
+    modalExerciseGif.src = ex.imageUrl;
+    modalExerciseGif.alt = `${ex.name} exercise image`;
+  } else {
+    modalExerciseGif.src = PLACEHOLDER_EXERCISE;
+    modalExerciseGif.alt = "Exercise image not available";
+  }
+  
+  modalExerciseGif.onerror = function(){ 
+    this.onerror = null; 
+    this.src = PLACEHOLDER_EXERCISE;
+    this.alt = "Exercise image not available";
+  };
+
+  modalBodyPart.textContent = titleCase(ex.muscle || 'N/A');
+  modalTargetMuscle.textContent = titleCase(ex.muscle || 'N/A'); // API-Ninjas uses 'muscle' for target
   modalEquipment.textContent = titleCase(ex.equipment || 'N/A');
-  const instr = Array.isArray(ex.instructions) ? ex.instructions : (ex.instructions ? [ex.instructions] : []);
-  modalInstructions.innerHTML = instr.length ? `<ol>${instr.map(i=>`<li>${escapeHtml(i)}</li>`).join('')}</ol>` : 'No instructions provided.';
-  const sec = ex.secondaryMuscles || [];
-  modalSecondary.innerHTML = sec.length ? sec.map(s=>`<span class="chip">${titleCase(s)}</span>`).join(' ') : '--';
+
+  // Format instructions
+  const instructions = ex.instructions || '';
+  const instructionList = instructions.split(/\d+\./).filter(item => item.trim() !== '');
+  modalInstructions.innerHTML = instructionList.length ? 
+    `<ol>${instructionList.map(i => `<li>${escapeHtml(i.trim())}</li>`).join('')}</ol>` : 
+    'No instructions provided.';
+
+  // API-Ninjas doesn't provide secondary muscles, so leave empty
+  modalSecondary.innerHTML = '--';
+
   workoutDetailModal.classList.add('open');
   workoutDetailModal.setAttribute('aria-hidden','false');
 }
@@ -663,14 +816,16 @@ function closeExerciseModal(){
 modalCloseButton.addEventListener('click', closeExerciseModal);
 workoutDetailModal.addEventListener('click', (e)=>{ if (e.target === workoutDetailModal) closeExerciseModal(); });
 document.addEventListener('keydown', (e)=>{ if (e.key==='Escape') closeExerciseModal(); });
+
 /* =========================================================
    PROFILE: Save/Load + Histories
+   - FIXED: Profile data now persists using localStorage
    ========================================================= */
 profileForm.addEventListener('submit', (e)=>{
   e.preventDefault();
   const profile = {
     name: nameInput.value.trim(),
-    age: toNumber(ageInput.value),
+    age:   toNumber(ageInput.value),
     weight: toNumber(weightInput.value),
     height: toNumber(heightInput.value),
     updatedAt: Date.now()
@@ -680,9 +835,10 @@ profileForm.addEventListener('submit', (e)=>{
 });
 clearProfileBtn.addEventListener('click', ()=>{
   try { localStorage.removeItem(STORAGE_KEYS.PROFILE); } catch(e){ console.warn('Failed to clear profile', e); }
-  profileForm.reset();
   loadProfileData();
+  profileForm.reset();
 });
+
 function loadProfileData(){
   const p = getProfile();
   if (p){
@@ -695,17 +851,14 @@ function loadProfileData(){
     summaryWeight.textContent = p.weight || 'N/A';
     summaryHeight.textContent = p.height || 'N/A';
   }else{
-    nameInput.value = '';
-    ageInput.value = '';
-    weightInput.value = '';
-    heightInput.value = '';
     summaryName.textContent = 'N/A';
-    summaryAge.textContent = 'N/A';
-    summaryWeight.textContent = 'N/A';
-    summaryHeight.textContent = 'N/A';
+    summaryAge.textContent   = 'N/A';
+    summaryWeight.textContent= 'N/A';
+    summaryHeight.textContent= 'N/A';
   }
 }
 function renderHistory(){
+  // Food history
   const foods = getHistory(STORAGE_KEYS.FOOD_HISTORY);
   foodHistoryList.innerHTML = foods.map(f => `
     <li>
@@ -714,6 +867,8 @@ function renderHistory(){
     </li>
   `).join('');
   foodHistoryEmpty.style.display = foods.length ? 'none' : 'block';
+
+  // Exercise history
   const exs = getHistory(STORAGE_KEYS.EX_HISTORY);
   exerciseHistoryList.innerHTML = exs.map(x => `
     <li>
@@ -723,21 +878,28 @@ function renderHistory(){
   `).join('');
   exerciseHistoryEmpty.style.display = exs.length ? 'none' : 'block';
 }
+
 function renderDashboardHistory(){
   const foods = getHistory(STORAGE_KEYS.FOOD_HISTORY);
   const exs = getHistory(STORAGE_KEYS.EX_HISTORY);
+
   const items = [];
   foods.slice(0,4).forEach(f => items.push({type:'food', title:f.q, when:f.when}));
   exs.slice(0,4).forEach(x => items.push({type:'exercise', title:x.name || x.id, when:x.when}));
+
+  // sort by recency
   items.sort((a,b)=> (b.when||0)-(a.when||0));
+
   dashboardHistoryList.innerHTML = items.slice(0,6).map(it => `
     <li>
       <span>${escapeHtml(titleCase(it.title))}</span>
       <span class="pill">${it.type === 'food' ? 'Food' : 'Exercise'} • ${timeAgo(it.when)}</span>
     </li>
   `).join('');
+
   dashboardEmpty.style.display = items.length ? 'none' : 'block';
 }
+
 /* =========================================================
    Utilities (helpers used across code)
    ========================================================= */
@@ -762,6 +924,8 @@ function timeAgo(ts){
   const h = Math.floor(m/60); if (h < 24) return `${h}h ago`;
   const d = Math.floor(h/24); return `${d}d ago`;
 }
+
+/* Safe numeric extractor: check multiple possible keys and return number or 0 */
 function safeNum(obj, ...keys){
   if (!obj) return 0;
   for (const k of keys){
@@ -773,6 +937,8 @@ function safeNum(obj, ...keys){
   }
   return 0;
 }
+
+/* URL validator for image sources */
 function isValidUrl(s){
   if (!s) return false;
   try {
@@ -780,6 +946,7 @@ function isValidUrl(s){
     return (u.protocol === 'http:' || u.protocol === 'https:');
   } catch(e){ return false; }
 }
+
 /* Initial load */
 document.addEventListener('DOMContentLoaded', ()=>{
   loadProfileData();
